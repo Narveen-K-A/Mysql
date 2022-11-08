@@ -59,8 +59,60 @@ VALUES (1, 800, 1300),
 (4, 2101, 3100),
 (5, 3101, 9999);
 
-SELECT * FROM employees;
+1. SELECT * FROM employees;
 
-SELECT salary FROM employees;
+2. SELECT salary FROM employees;
 
-SELECT DISTINCT job_name FROM employees;
+3. SELECT DISTINCT job_name FROM employees;
+
+4. SELECT emp_name, FORMAT(1.15*salary,'C','en-US') AS "salary" FROM employees;
+
+5. SELECT emp_name+' '+job_name AS "emloyee_and_job" FROM employees;
+
+6. SELECT emp_id, emp_name, salary, CONVERT( varchar(20), hire_date, 107) AS "to_char" FROM employees;
+
+7. SELECT LEN(emp_name) AS "length" FROM employees;
+
+8. SELECT emp_id, salary, commission FROM employees;
+
+9. SELECT * FROM employees WHERE dep_id NOT IN (2001);
+
+10. SELECT * FROM employees WHERE hire_date<('1991-01-01');
+
+11. SELECT AVG(salary) FROM employees WHERE job_name='ANALYST';
+
+12. SELECT * FROM employees WHERE emp_name='BLAZE';
+
+13. SELECT * FROM employees WHERE (salary*1.25) > 3000;
+
+14. SELECT * FROM employees WHERE MONTH (hire_date)='01';
+
+15. SELECT emp_id, emp_name, salary, hire_date FROM employees WHERE hire_date<('1991-04-01');
+
+16. SELECT em.emp_name, em.salary from employees em, salary_grade sa WHERE em.emp_name='FRANK' AND em.salary BETWEEN sa.min_salary AND sa.max_salary AND em.salary = sa.max_salary;
+
+17. SELECT * FROM employees WHERE job_name NOT IN ('PRESIDENT','MANAGER') ORDER BY salary ASC;
+
+18. SELECT MAX(salary) as "max" FROM employees;
+
+19. SELECT job_name, avg(salary) AS "avg", avg(salary+commission) AS "avg" FROM employees GROUP BY job_name;
+
+20. SELECT em.emp_id, em.emp_name, em.dep_id, de.dep_location, de.dep_name FROM employees em, department de WHERE em.dep_id = de.dep_id AND em.dep_id IN (1001, 2001);
+
+21. select manager_id, count(*) as "count" from employees group by manager_id order by manager_id asc;
+
+22. SELECT dep_id, count(*) FROM employees GROUP BY dep_id HAVING count(*) >= 2;
+
+23. SELECT * FROM employees WHERE emp_name LIKE '%AR%';
+
+24. ALTER TABLE employees ADD gender varchar(10);
+
+UPDATE employees SET gender ='M' WHERE emp_id IN('63679','64989','65271','66928','68454','68736','69062');
+UPDATE employees SET gender ='F'WHERE emp_id NOT IN('63679','64989','65271','66928','68454','68736','69062');
+
+25. SELECT * FROM employees WHERE job_name NOT IN ('PRESIDENT','MANAGER');
+
+26. SELECT job_name, CASE WHEN job_name IN ('PRESIDENT','MANAGER','ANALYST') THEN 'Management Level' WHEN  job_name IN ('SALESMAN','CLERK') THEN 'Employee Level' END AS "label_name" FROM employees;
+
+27. UPDATE employees SET commission=650.00 WHERE job_name='ANALYST' AND EXISTS(SELECT job_name FROM employees WHERE job_name='ANALYST');
+SELECT * from employees;
