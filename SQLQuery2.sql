@@ -58,8 +58,6 @@ VALUES (1, 800, 1300),
 (4, 2101, 3100),
 (5, 3101, 9999);
 
-ALTER table employees ADD CONSTRAINT my_primay PRIMARY KEY (emp_id);
-
 1. SELECT * FROM employees;
 
 2. SELECT salary FROM employees;
