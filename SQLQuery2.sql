@@ -106,12 +106,16 @@ VALUES (1, 800, 1300),
 
 24. ALTER TABLE employees ADD gender varchar(10);
 
-UPDATE employees SET gender ='M' WHERE emp_id IN(63679,64989,65271,66928,68454,68736,69062);
-UPDATE employees SET gender ='F'WHERE emp_id NOT IN(63679,'64989','65271','66928','68454','68736','69062');
+UPDATE employees SET gender ='M' WHERE emp_id IN(63679, 64989, 65271, 66928, 68454, 68736, 69062);
+
+UPDATE employees SET gender ='F'WHERE emp_id NOT IN(63679, 64989, 65271, 66928, 68454, 68736, 69062);
+
+SELECT * FROM employees; 
 
 25. SELECT * FROM employees WHERE job_name NOT IN ('PRESIDENT','MANAGER');
 
 26. SELECT job_name, CASE WHEN job_name IN ('PRESIDENT','MANAGER','ANALYST') THEN 'Management Level' WHEN  job_name IN ('SALESMAN','CLERK') THEN 'Employee Level' END AS "label_name" FROM employees;
 
 27. UPDATE employees SET commission=650.00 WHERE job_name='ANALYST' AND EXISTS(SELECT job_name FROM employees WHERE job_name='ANALYST');
-SELECT * from employees;
+
+SELECT * FROM employees;
