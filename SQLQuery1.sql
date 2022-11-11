@@ -70,7 +70,7 @@ VALUES(18, 'Order All', 'Boston'),
 (17, 'Foodies', 'London'),
 (19, 'Sip-n-Bite', 'New York');
 
-3. SELECT company.company_id, company.company_name, company.company_city, foods.company_id, foods.item_name FROM company LEFT JOIN foods ON company.company_id = foods.company_id;
+3. SELECT company.company_id, company.company_name, foods.company_id, foods.item_name, foods.item_unit FROM company LEFT JOIN foods ON company.company_id = foods.company_id;
 
 CREATE TABLE counter_sale(
 	bill_no int NOT NULL,
@@ -94,7 +94,7 @@ VALUES(1003, 6, 15, 20, 300),
 
 6. SELECT company.company_id, company.company_name, company.company_city, foods.company_id, foods.item_name FROM company RIGHT JOIN foods ON company.company_id = foods.company_id;
 
-7. SELECT a.company_name,b.company_name,a.company_city FROM company a, company b WHERE a.company_city=b.company_city;
+7. SELECT a.company_name,b.company_name,a.company_city FROM company a, company b WHERE a.company_id=b.company_id;
 
 CREATE TABLE agents(
 	agent_code varchar(20) NOT NULL,
@@ -137,11 +137,11 @@ VALUES(200114, 3500, 2000, '15-AUG-08', 'C00002', 'A008', NULL),
 (200108, 4000, 600, '15-FEB-08', 'C00008', 'A004', NULL),
 (200103, 1500, 700, '15-MAY-08', 'C00021', 'A005', NULL);
 
-8. SELECT agents.agent_code, agents.agent_name, SUM(orders.advance_amount) AS sum_of_advance FROM agents, orders WHERE agents.agent_code=orders.agent_code GROUP BY agents.agent_code,agents.agent_name ORDER BY agents.agent_code;
+8. SELECT agents.agent_code, agents.agent_name, SUM(orders.advance_amount) AS sum_of_advance FROM agents, orders WHERE agents.agent_code=orders.agent_code GROUP BY agents.agent_code, agents.agent_name ORDER BY agents.agent_code;
 
 ALTER TABLE foods ADD FOREIGN KEY (company_id) REFERENCES company(company_id);
 
-9. SELECT foods.item_name,foods.item_unit, company.company_name, company.company_city FROM foods, company WHERE  foods.company_id =company.company_id AND company.company_city='London';
+9. SELECT foods.item_name, foods.item_unit, company.company_name, company.company_city FROM foods, company WHERE  foods.company_id=company.company_id AND company.company_city='London';
 
 CREATE TABLE despatch(
 	des_num varchar(20) NOT NULL,
@@ -161,7 +161,7 @@ VALUES('D002', '10-JUN-08', 2000, 200112, '30-MAY-08', 2000, 'A007'),
 ('D004', '20-AUG-08', 450, 200120, '20-JUL-08', 500, 'A002'),
 ('D006', '24-JUL-08', 4500, 200128, '20-JUL-08', 3500, 'A002');
 
-10. SELECT a.des_num, a.des_date, SUM(b.ord_amount) AS sum_of_ord FROM despatch a, orders b WHERE a.ord_amount=b.ord_amount GROUP BY a.des_num,a.des_date;
+10. SELECT a.des_num, a.des_date, SUM(b.ord_amount) AS sum_of_ord FROM despatch a, orders b WHERE a.ord_amount=b.ord_amount GROUP BY a.des_num, a.des_date;
 
 11. SELECT ord_num, ord_amount, ord_date, cust_code, agent_code FROM orders WHERE agent_code IN (SELECT agent_code FROM agents WHERE working_area='Bangalore');
 
@@ -185,4 +185,4 @@ VALUES('C00013', 'Holmes', 'London', 'London', 'UK', 2, 6000.00, 5000.00),
 ('C00015', 'Stuart', 'London', 'London', 'UK', 1, 6000.00, 8000.00),
 ('C00002', 'Bolt', 'New York', 'New York', 'USA', 3, 5000.00, 7000.00);
 
-12. SELECT cust_country,COUNT(grade) FROM customers GROUP BY cust_country HAVING COUNT(grade)>2;
+12. SELECT cust_country, COUNT(grade) AS grade FROM customers GROUP BY cust_country HAVING COUNT(grade)>2;

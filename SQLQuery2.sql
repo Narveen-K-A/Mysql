@@ -88,7 +88,7 @@ VALUES (1, 800, 1300),
 
 15. SELECT emp_id, emp_name, salary, hire_date FROM employees WHERE hire_date<('1991-04-01');
 
-16. SELECT em.emp_name, em.salary from employees em, salary_grade sa WHERE em.emp_name='FRANK' AND em.salary BETWEEN sa.min_salary AND sa.max_salary AND em.salary = sa.max_salary;
+16. SELECT employees.emp_name, employees.salary from employees, salary_grade WHERE employees.emp_name='FRANK' AND employees.salary BETWEEN salary_grade.min_salary AND salary_grade.max_salary AND employees.salary = salary_grade.max_salary;
 
 17. SELECT * FROM employees WHERE job_name NOT IN ('PRESIDENT','MANAGER') ORDER BY salary ASC;
 
@@ -106,8 +106,8 @@ VALUES (1, 800, 1300),
 
 24. ALTER TABLE employees ADD gender varchar(10);
 
-UPDATE employees SET gender ='M' WHERE emp_id IN('63679','64989','65271','66928','68454','68736','69062');
-UPDATE employees SET gender ='F'WHERE emp_id NOT IN('63679','64989','65271','66928','68454','68736','69062');
+UPDATE employees SET gender ='M' WHERE emp_id IN(63679,64989,65271,66928,68454,68736,69062);
+UPDATE employees SET gender ='F'WHERE emp_id NOT IN(63679,'64989','65271','66928','68454','68736','69062');
 
 25. SELECT * FROM employees WHERE job_name NOT IN ('PRESIDENT','MANAGER');
 
