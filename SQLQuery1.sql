@@ -186,3 +186,33 @@ VALUES('C00013', 'Holmes', 'London', 'London', 'UK', 2, 6000.00, 5000.00),
 ('C00002', 'Bolt', 'New York', 'New York', 'USA', 3, 5000.00, 7000.00);
 
 12. SELECT cust_country, COUNT(grade) AS grade FROM customers GROUP BY cust_country HAVING COUNT(grade)>2;
+
+ALTER TABLE customers ADD gender varchar(10);
+
+UPDATE customers SET gender ='M' WHERE cust_code IN('C00013','C00020', 'C00025', 'C00002');
+
+UPDATE customers SET gender ='F' WHERE cust_code NOT IN('C00013','C00020', 'C00025', 'C00002');
+
+SELECT MAX(opening_amt) AS male FROM customers WHERE opening_amt < (SELECT MAX(opening_amt) FROM customers) AND gender='M';
+
+SELECT MAX(opening_amt) AS female FROM customers WHERE opening_amt < (SELECT MAX(opening_amt) FROM customers) AND gender='F';
+
+SELECT 
+MAX(opening_amt) AS female 
+FROM customers GROUP BY opening_amt, gender HAVING opening_amt < (SELECT MAX(opening_amt) FROM customers) AND gender='F';
+
+SELECT  MAX(opening_amt) AS opening_amt FROM customers GROUP BY opening_amt, gender HAVING opening_amt < (SELECT MAX(opening_amt) FROM customers) AND gender='M'
+UNION
+SELECT MAX(opening_amt) AS opening_amt FROM customers GROUP BY opening_amt, gender HAVING opening_amt < (SELECT MAX(opening_amt) FROM customers) AND gender='F';
+
+SELECT cust_name,gender, max(opening_amt) FROM customers
+WHERE opening_amt < (SELECT Max(opening_amt) FROM customers) AND gender='M' GROUP BY cust_name, gender
+UNION
+SELECT cust_name,gender, max(opening_amt) FROM customers
+WHERE opening_amt < (SELECT Max(opening_amt) FROM customers) AND gender='F' GROUP BY cust_name, gender;
+
+SELECT TOP 2 opening_amt FROM (SELECT TOP 2 opening_amt FROM customers WHERE  opening_amt < (SELECT Max(opening_amt) FROM customers) AND gender='F' ORDER BY opening_amt DESC) AS opening_amt ORDER BY opening_amt ASC;
+
+
+
+
